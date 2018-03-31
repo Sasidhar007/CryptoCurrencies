@@ -254,3 +254,56 @@ data = [
 # IPython notebook
 plotly.offline.iplot(data)
 
+#Below I am defining various traces will then use them to plot subplots
+trace1 = go.Scatter(
+        x = dfETC['DateTime'],
+        y = dfETC['5DayMA'],
+        name = '5DayMA'
+    )
+
+trace2 = go.Scatter(
+                x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+                y=dfETC['close'],
+                name = 'Closing Price ETC'
+            )
+trace3 = go.Scatter(
+        x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+        y=dfETC['10DayMA'],
+        name = '10DayMA'
+    )
+
+trace4 = go.Scatter(
+        x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+        y=dfETC['volume'],
+        name = 'Volume ETC'
+    )
+
+trace5 = go.Scatter(
+        x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+        y=dfETC['Volatility'],
+        name = 'Volatility'
+    )
+
+fig = tools.make_subplots(rows=3, cols=2, specs = [[{'rowspan': 2, 'colspan': 2}, None],
+                                                   [None, None],
+                                                   [{}, {}]
+                                                  ],print_grid=True)
+
+fig.append_trace(trace2, 1, 1)
+fig.append_trace(trace4, 3, 1)
+fig.append_trace(trace5, 3, 2)
+
+fig['layout'].update(height=750, width=750, title='Price, Volume and Volatility')
+plotly.offline.iplot(fig)
+
+
+#this below is for stacked subplots
+fig2 = tools.make_subplots(rows=3, cols=1)
+
+fig2.append_trace(trace2, 1, 1)
+fig2.append_trace(trace4, 2, 1)
+fig2.append_trace(trace5, 3, 1)
+
+
+fig2['layout'].update(height=600, width=600, title='Price, Volume and Volatility Stacked subplots')
+plotly.offline.iplot(fig2)
