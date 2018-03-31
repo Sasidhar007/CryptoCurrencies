@@ -14,7 +14,7 @@ import seaborn as sns
 from pandas import datetime
 import datedelta
 import plotly
-plotly.tools.set_credentials_file(username='', api_key='')
+plotly.tools.set_credentials_file(username='sasi_ynwa', api_key='wEm5TtVT8TOVKzFyd8CA')
 import plotly.graph_objs as go
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 init_notebook_mode(connected=True)
