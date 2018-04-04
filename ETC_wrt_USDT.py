@@ -307,3 +307,69 @@ fig2.append_trace(trace5, 3, 1)
 
 fig2['layout'].update(height=600, width=600, title='Price, Volume and Volatility Stacked subplots')
 plotly.offline.iplot(fig2)
+
+
+#below is for generating Candlestick plot , Volume and Moving Averages
+trace2 = go.Bar(
+        x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+        y=dfETC['volume'],
+        name = 'Volume ETC'
+    )
+
+
+trace4 = go.Scatter(
+                x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+                y=dfETC['close'],
+                name = 'Closing Price ETC',
+    yaxis = 'y2'
+            )
+
+trace3 = go.Scatter(
+        x=dfETC['DateTime'], # assign x as the dataframe column 'x'
+        y=dfETC['10DayMA'],
+        name = '10DayMA', 
+    yaxis = 'y2'
+    )
+
+trace7 = go.Scatter(
+        x = dfETC['DateTime'],
+        y = dfETC['30DayMA'],
+        name = '30DayMA',
+    yaxis = 'y2'
+    )
+trace8 =     go.Scatter(
+        x = dfETC['DateTime'],
+        y = dfETC['5DayMA'],
+        name = '5DayMA',
+    yaxis = 'y2'
+    )
+trace6 = go.Candlestick(x=dfETC.DateTime,
+                       open=dfETC.open,
+                       high=dfETC.high,
+                       low=dfETC.low,
+                       close=dfETC.close,
+                       increasing=dict(line=dict(color= '#00ff00')),
+                       decreasing=dict(line=dict(color= '#FF0000')),
+                       yaxis='y2')
+
+
+data = [trace2, trace3, trace6, trace7, trace8]#, trace6]
+layout = go.Layout(
+    title='Volume and Price (Candlestick) Overlayed with each other ',
+    yaxis=dict(
+        title='Volume ETC'
+    ),
+    yaxis2=dict(
+        title='Closing Price of ETC',
+        titlefont=dict(
+            color='rgb(148, 103, 189)'
+        ),
+        tickfont=dict(
+            color='rgb(148, 103, 189)'
+        ),
+        overlaying='y',
+        side='right'
+    )
+)
+fig3 = go.Figure(data=data, layout=layout)
+plotly.offline.iplot(fig3)
